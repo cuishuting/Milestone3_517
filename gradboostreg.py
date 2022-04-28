@@ -13,6 +13,7 @@ import numpy as np
 #        'time2', 'time3', 'time4', 'time5', 'time6', 'time7', 'time8', 'time9',
 #        'time10', 'time11', 'time12', 'time13', 'time14', 'omega', 'set']
 #from utils import ModelDumper
+from utils import ModelDumper
 
 FEAT_SELECTIONS=['m', 'n', 'current_pitch', 'current_roll', 'absoluate_roll', 'time1',
        'time2', 'time3', 'time4', 'time5', 'time6', 'time7', 'time8', 'time9',
@@ -37,10 +38,10 @@ random_grid = {'n_estimators': n_estimators,
                'min_samples_split': min_samples_split,
                'min_samples_leaf': min_samples_leaf,
                'bootstrap': bootstrap}
-train_features= pd.read_pickle("normalized_x_train_df.pkl")
-train_labels=pd.read_pickle("normalized_y_train_df.pkl")
-val_features=pd.read_pickle("normalized_x_val_df.pkl")
-val_labels=pd.read_pickle("normalized_y_val_df.pkl")
+train_features= pd.read_pickle("data/normalized_x_train_df.pkl")
+train_labels=pd.read_pickle("data/normalized_y_train_df.pkl")
+val_features=pd.read_pickle("data/normalized_x_val_df.pkl")
+val_labels=pd.read_pickle("data/normalized_y_val_df.pkl")
 
 
 
@@ -72,6 +73,11 @@ reg.fit(train_features, train_labels)
 #print(best_random)
 
 random_performance = mean_squared_error(val_labels, reg.predict(val_features), squared=False)
+
+# save
+my_dumper=ModelDumper(FEAT_SELECTIONS,GradientBoostingRegressor)
+
+my_dumper.dump_model(random_performance,reg.get_params())
 
 #print('base model score %f ' % base_performance)
 print('random model score %f ' % random_performance)
