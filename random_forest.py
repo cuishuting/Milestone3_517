@@ -76,24 +76,10 @@ print('random model score %f ' % random_performance)
 my_dumper=ModelDumper(FEAT_SELECTIONS,RandomForestRegressor)
 
 #test
-# my_dumper.dump_model(base_performance,base_model.get_params())
+my_dumper.dump_model(base_performance,base_model.get_params())
 
-my_dumper.dump_model(random_performance,best_random)
-
-# if random_performance<base_performance:
-#     new_rf = RandomForestRegressor(**best_random)
-#     new_rf.fit(ultimate_train_feat, ultimate_train_y)
-#     result=new_rf.predict(test_feat)
-# #     with open('models&results/rf_model_%f.pkl'%random_performance,'wb') as f:
-# #         pickle.dump(rf_random,f)
-#     tmp_df=pd.DataFrame(data=result,columns=['target'])
-#     tmp_df.to_csv('models&results/pred_rf_%f.csv'%random_performance,index=True)
-
-
-# # load
-# with open('model.pkl', 'rb') as f:
-#     clf2 = pickle.load(f)
+# my_dumper.dump_model(random_performance,best_random)
 
 
 
-# print('Improvement of {:0.2f}%.'.format(100 * (random_performance - base_performance) / base_performance))
+
